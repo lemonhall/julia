@@ -280,13 +280,7 @@ end
 
 map(f, r::Ranges) = [ f(x) for x in r ]
 
-function contains{T}(r::Range1{T}, v::T)
-    inf = first(r)
-    sup = last(r)
-    inf <= v <= sup && (v-inf)%1==0
-end
-function contains{T}(r::Range{T}, v::T)
-    inf = first(r)
-    sup = last(r)
-    inf <= v <= sup && (v-inf)%r.step == 0
+function contains(r::Ranges, x)
+    n = ifloor((x-first(r))/step(r))+1
+    n >= 1 && n <= length(r) && r[n] == x
 end
