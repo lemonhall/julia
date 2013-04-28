@@ -279,3 +279,14 @@ function map!(f, dest, r::Ranges)
 end
 
 map(f, r::Ranges) = [ f(x) for x in r ]
+
+function contains{T}(r::Range1{T}, v::T)
+    inf = first(r)
+    sup = last(r)
+    inf <= v <= sup && (v-inf)%1==0
+end
+function contains{T}(r::Range{T}, v::T)
+    inf = first(r)
+    sup = last(r)
+    inf <= v <= sup && (v-inf)%r.step == 0
+end
